@@ -1,32 +1,13 @@
 {
   "project_info": {
-    "project_number": "400094038543",
-    "project_id": "facebook-clone-project-e5889",
-    "storage_bucket": "facebook-clone-project-e5889.appspot.com"
+    "project_number": "820653884224",
+    "project_id": "facebook-clone-98cb4",
+    "storage_bucket": "facebook-clone-98cb4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:400094038543:android:1db7b1bae59c5e2a97b17a",
-        "android_client_info": {
-          "package_name": "com.codehq.facebook_clone"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC5qy_TuF9qXbjJzsu4DaaODlAdvdOutqo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:400094038543:android:f9d93f04a29e56f397b17a",
+        "mobilesdk_app_id": "1:820653884224:android:bcbbf99becc742b5e7f0a5",
         "android_client_info": {
           "package_name": "com.example.facebook_clo"
         }
@@ -34,45 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC5qy_TuF9qXbjJzsu4DaaODlAdvdOutqo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:400094038543:android:49d1e7fb30c68e8997b17a",
-        "android_client_info": {
-          "package_name": "com.example.facebook_clone_project"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC5qy_TuF9qXbjJzsu4DaaODlAdvdOutqo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:400094038543:android:79314a241219c70197b17a",
-        "android_client_info": {
-          "package_name": "com.example.facebook_cloning_project"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC5qy_TuF9qXbjJzsu4DaaODlAdvdOutqo"
+          "current_key": "AIzaSyAkbE36M5maZqpDCha19jJmoWMsdMhE7RM"
         }
       ],
       "services": {

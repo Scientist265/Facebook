@@ -3,28 +3,35 @@ import 'dart:io';
 import 'package:facebook_clo/core/constants/app_colors.dart';
 import 'package:facebook_clo/core/constants/constants.dart';
 import 'package:facebook_clo/core/constants/sizing.dart';
+import 'package:facebook_clo/core/screens/loader.dart';
 import 'package:facebook_clo/core/utils/utils.dart';
 import 'package:facebook_clo/core/widgets/pick_image_widget.dart';
 import 'package:facebook_clo/core/widgets/round_button.dart';
 import 'package:facebook_clo/core/widgets/round_text_field.dart';
 import 'package:facebook_clo/features/auth/presentation/widgets/birthday_picker.dart';
 import 'package:facebook_clo/features/auth/presentation/widgets/gender_picker.dart';
+import 'package:facebook_clo/features/auth/providers/providers.dart';
 import 'package:facebook_clo/features/auth/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final _formKey = GlobalKey<FormState>();
 
-class CreateAccountScreen extends StatefulWidget {
+class CreateAccountScreen extends ConsumerStatefulWidget {
   const CreateAccountScreen({super.key});
 
+  static const routeName = "/create-account";
+
   @override
-  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
+  ConsumerState<CreateAccountScreen> createState() =>
+      _CreateAccountScreenState();
 }
 
-class _CreateAccountScreenState extends State<CreateAccountScreen> {
+class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
   File? image;
   String gender = "male";
   DateTime? birthday;
+  bool isLoading = false;
   // controllers
   final _fNameController = TextEditingController();
   final _lNameController = TextEditingController();
@@ -38,6 +45,33 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> createAccount() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      setState(() {
+        isLoading = true;
+      });
+      await ref
+          .read(authProvider)
+          .createAccount(
+            fullName: "${_fNameController.text} ${_lNameController.text}",
+            birthday: "${birthday ?? DateTime.now()}",
+            gender: gender,
+            email: _emailController.text,
+            password: _passwordController.text,
+            image: image,
+          )
+          .then((credential) {
+        if (!credential!.user!.emailVerified) {
+          showToastMessage(text: "Account created succesfully");
+          Navigator.pop(context);
+        }
+      }).catchError((_) {
+        setState(() => isLoading = false);
+      });
+    }
   }
 
   @override
@@ -111,7 +145,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 ),
                 gaph20,
                 RoundTextField(
-                  controller: _emailController,
+                  controller: _passwordController,
                   hintText: "Password",
                   textInputAction: TextInputAction.done,
                   validator: validatePassword,
@@ -119,10 +153,14 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   keyBoardType: TextInputType.visiblePassword,
                 ),
                 gaph20,
-                RoundButton(
-                  label: "Next",
-                  onPressed: () {},
-                )
+                isLoading
+                    ? const Center(
+                        child: Loader(),
+                      )
+                    : RoundButton(
+                        label: "Create Account",
+                        onPressed: createAccount,
+                      )
               ],
             ),
           ),

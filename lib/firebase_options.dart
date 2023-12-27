@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -44,38 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCrhA28Wg8_3wwQQPSFASON1FyMz5lBsEU',
-    appId: '1:400094038543:web:6e68394bb0f9c2e597b17a',
-    messagingSenderId: '400094038543',
-    projectId: 'facebook-clone-project-e5889',
-    authDomain: 'facebook-clone-project-e5889.firebaseapp.com',
-    storageBucket: 'facebook-clone-project-e5889.appspot.com',
-    measurementId: 'G-DWWF8KF2V1',
+    apiKey: 'AIzaSyDAZLG50tIylDPgGE_h-0gKhmsr1v056N8',
+    appId: '1:820653884224:web:d6997b0368d51ca7e7f0a5',
+    messagingSenderId: '820653884224',
+    projectId: 'facebook-clone-98cb4',
+    authDomain: 'facebook-clone-98cb4.firebaseapp.com',
+    storageBucket: 'facebook-clone-98cb4.appspot.com',
+    measurementId: 'G-68663Z54H7',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC5qy_TuF9qXbjJzsu4DaaODlAdvdOutqo',
-    appId: '1:400094038543:android:f9d93f04a29e56f397b17a',
-    messagingSenderId: '400094038543',
-    projectId: 'facebook-clone-project-e5889',
-    storageBucket: 'facebook-clone-project-e5889.appspot.com',
+    apiKey: 'AIzaSyAkbE36M5maZqpDCha19jJmoWMsdMhE7RM',
+    appId: '1:820653884224:android:bcbbf99becc742b5e7f0a5',
+    messagingSenderId: '820653884224',
+    projectId: 'facebook-clone-98cb4',
+    storageBucket: 'facebook-clone-98cb4.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBXJe9stBWci8EPiuXhkEQmHzNOzOEuzsQ',
-    appId: '1:400094038543:ios:653c24042c6af95797b17a',
-    messagingSenderId: '400094038543',
-    projectId: 'facebook-clone-project-e5889',
-    storageBucket: 'facebook-clone-project-e5889.appspot.com',
+    apiKey: 'AIzaSyAu40kTE83nHJpQnFcEDV9qGMrhw8g451g',
+    appId: '1:820653884224:ios:374ebd8091b1c406e7f0a5',
+    messagingSenderId: '820653884224',
+    projectId: 'facebook-clone-98cb4',
+    storageBucket: 'facebook-clone-98cb4.appspot.com',
     iosBundleId: 'com.example.facebookClo',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBXJe9stBWci8EPiuXhkEQmHzNOzOEuzsQ',
-    appId: '1:400094038543:ios:734c6faf4547559e97b17a',
-    messagingSenderId: '400094038543',
-    projectId: 'facebook-clone-project-e5889',
-    storageBucket: 'facebook-clone-project-e5889.appspot.com',
-    iosBundleId: 'com.example.facebookClo.RunnerTests',
   );
 }
