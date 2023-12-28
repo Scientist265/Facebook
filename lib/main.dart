@@ -1,9 +1,9 @@
 import 'package:facebook_clo/core/screens/home_screen.dart';
 import 'package:facebook_clo/core/screens/loader.dart';
-import 'package:facebook_clo/features/auth/presentation/screens/create_account_screen.dart';
 import 'package:facebook_clo/features/auth/presentation/screens/login_screen.dart';
 import 'package:facebook_clo/features/auth/presentation/screens/verify_email_screen.dart';
 import 'package:facebook_clo/firebase_options.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +13,16 @@ import 'config/routes/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ProviderScope(child: MainApp()));
+  await FirebaseAppCheck.instance.activate();
+  runApp(
+    const ProviderScope(
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -37,7 +43,9 @@ class MainApp extends StatelessWidget {
               if (user!.emailVerified) {
                 return const HomeScreen();
               } else {
-                return const VerifyEmailScreen();
+                //TODO: Need to be Fixed for Email Verification
+                // shoud be VerifyEmailScreen instead
+                return const HomeScreen();
               }
             }
             return const LoginScreen();

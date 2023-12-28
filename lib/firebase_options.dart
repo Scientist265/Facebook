@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -71,5 +68,14 @@ class DefaultFirebaseOptions {
     projectId: 'facebook-clone-98cb4',
     storageBucket: 'facebook-clone-98cb4.appspot.com',
     iosBundleId: 'com.example.facebookClo',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAu40kTE83nHJpQnFcEDV9qGMrhw8g451g',
+    appId: '1:820653884224:ios:04b3b0adb69e9468e7f0a5',
+    messagingSenderId: '820653884224',
+    projectId: 'facebook-clone-98cb4',
+    storageBucket: 'facebook-clone-98cb4.appspot.com',
+    iosBundleId: 'com.example.facebookClo.RunnerTests',
   );
 }

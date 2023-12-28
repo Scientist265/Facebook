@@ -1,24 +1,40 @@
 import 'package:facebook_clo/core/constants/app_colors.dart';
 import 'package:facebook_clo/core/constants/constants.dart';
 import 'package:facebook_clo/core/constants/sizing.dart';
+import 'package:facebook_clo/core/screens/loader.dart';
 import 'package:facebook_clo/core/widgets/round_button.dart';
 import 'package:facebook_clo/core/widgets/round_text_field.dart';
 import 'package:facebook_clo/features/auth/presentation/screens/create_account_screen.dart';
+import 'package:facebook_clo/features/auth/providers/providers.dart';
 import 'package:facebook_clo/features/auth/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final _formKey = GlobalKey<FormState>();
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool isLoading = false;
+
+  Future<void> login() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      setState(() => isLoading = true);
+      await ref.read(authProvider).signIn(
+            email: _emailController.text,
+            password: _passwordController.text,
+          );
+      setState(() => isLoading = false);
+    }
+  }
 
   @override
   void dispose() {
@@ -54,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   gaph20,
                   RoundTextField(
-                    controller: _emailController,
+                    controller: _passwordController,
                     hintText: "Password",
                     textInputAction: TextInputAction.done,
                     validator: validatePassword,
@@ -62,10 +78,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     keyBoardType: TextInputType.visiblePassword,
                   ),
                   gaph20,
-                  RoundButton(
-                    label: "Login",
-                    onPressed: () {},
-                  ),
+                  isLoading
+                      ? const Center(
+                          child: Loader(),
+                        )
+                      : RoundButton(
+                          label: "Login",
+                          onPressed: login,
+                        ),
                   TextButton(
                     onPressed: () {},
                     style: TextButton.styleFrom(

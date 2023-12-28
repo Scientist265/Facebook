@@ -7,7 +7,7 @@ import 'package:facebook_clo/core/utils/utils.dart';
 import 'package:facebook_clo/features/auth/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:uuid/uuid.dart';
+
 
 class AuthRepository {
   final _auth = FirebaseAuth.instance;
@@ -62,7 +62,7 @@ class AuthRepository {
 
       final path = _storage
           .ref(StorageFolderNames.profilePics)
-          .child(_auth.currentUser!.uid);
+          .child(FirebaseAuth.instance.currentUser!.uid);
 
       if (image == null) {
         return null;
@@ -106,7 +106,6 @@ class AuthRepository {
       if (user != null) {
         user.sendEmailVerification();
       }
-      return null;
     } catch (e) {
       showToastMessage(text: e.toString());
     }

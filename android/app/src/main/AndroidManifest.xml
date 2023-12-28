@@ -29,5 +29,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.google.firebase.appcheck.API_KEY"
+            android:value="AIzaSyAkbE36M5maZqpDCha19jJmoWMsdMhE7RM" />
     </application>
 </manifest>

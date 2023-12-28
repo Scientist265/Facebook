@@ -36,11 +36,16 @@ class VerifyEmailScreen extends ConsumerWidget {
                 await FirebaseAuth.instance.currentUser!.reload();
 
                 final emailVerified =
-                    FirebaseAuth.instance.currentUser?.emailVerified;
+                    FirebaseAuth.instance.currentUser!.emailVerified;
 
-                if (emailVerified == true) {
+                if (emailVerified) {
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pushNamed(HomeScreen.routeName);
+                } else {
+                  showToastMessage(text: "Can't refresh");
                 }
+
+                // Navigator.of(context).pushNamed(HomeScreen.routeName);
               },
               label: "Refresh",
             ),
