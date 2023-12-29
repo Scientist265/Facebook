@@ -1,7 +1,6 @@
 import 'package:facebook_clo/core/constants/app_colors.dart';
 import 'package:facebook_clo/core/constants/constants.dart';
 import 'package:facebook_clo/core/widgets/round_icon_button.dart';
-import 'package:facebook_clo/features/auth/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

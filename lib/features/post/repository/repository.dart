@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:facebook_clo/core/constants/firebase_collection_names.dart';
 import 'package:facebook_clo/core/constants/firebase_field_names.dart';
-import 'package:facebook_clo/features/post/repository/models/post_model.dart';
+import 'package:facebook_clo/features/post/models/comments.dart';
+import 'package:facebook_clo/features/post/models/post_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart' show immutable;
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 @immutable
@@ -41,7 +42,7 @@ class PostReository {
         postType: postType,
         fileUrl: downLoadUrl,
         createdAt: now,
-        likes: [],
+        likes: const [],
       );
 
       // post to firestore
@@ -70,19 +71,81 @@ class PostReository {
             .update({
           FirebaseFieldNames.likes: FieldValue.arrayRemove([authorId])
         });
-      }
-      else{
+      } else {
         //we need to like the post
-          _firestore
+        _firestore
             .collection(FirebaseCollectionNames.posts)
             .doc(postId)
             .update({
           FirebaseFieldNames.likes: FieldValue.arrayUnion([authorId])
-        }); 
+        });
       }
       return null;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
+    return null;
+  }
+
+  // Make Comment
+
+  Future<String?> makeComment({
+    required String text,
+    required String postId,
+  }) async {
+    try {
+      final commentId = const Uuid().v1();
+      final authorId = _auth.currentUser!.uid;
+      final now = DateTime.now();
+
+      //create comment
+      Comment comment = Comment(
+          commentId: commentId,
+          authorId: authorId,
+          postId: postId,
+          text: text,
+          createdAt: now,
+          likes: const []);
+
+      // post to firestore
+
+      _firestore
+          .collection(FirebaseCollectionNames.comments)
+          .doc(commentId)
+          .set(comment.toMap());
+      return null;
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
+  // Like a comment
+  Future<String?> likeDislikeComment({
+    required String commentId,
+    required List<String> likes,
+  }) async {
+    try {
+      final authorId = _auth.currentUser!.uid;
+      if (likes.contains(authorId)) {
+        _firestore
+            .collection(FirebaseCollectionNames.comments)
+            .doc(commentId)
+            .update({
+          FirebaseFieldNames.likes: FieldValue.arrayRemove([authorId])
+        });
+      } else {
+        //we need to like the comment
+        _firestore
+            .collection(FirebaseCollectionNames.comments)
+            .doc(commentId)
+            .update({
+          FirebaseFieldNames.likes: FieldValue.arrayUnion([authorId])
+        });
+        
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return null;
   }
 }

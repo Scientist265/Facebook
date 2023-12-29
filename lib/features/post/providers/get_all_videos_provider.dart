@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:facebook_clo/core/constants/firebase_collection_names.dart';
 import 'package:facebook_clo/core/constants/firebase_field_names.dart';
-import 'package:facebook_clo/features/post/repository/models/post_model.dart';
+import 'package:facebook_clo/features/post/models/post_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final getAllVideoProvider = StreamProvider.autoDispose<Iterable<Post>>((ref) {

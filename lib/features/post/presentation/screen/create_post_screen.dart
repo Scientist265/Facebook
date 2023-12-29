@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:facebook_clo/config/themes/app_theme.dart';
 import 'package:facebook_clo/core/constants/app_colors.dart';
 import 'package:facebook_clo/core/constants/constants.dart';
 import 'package:facebook_clo/core/constants/sizing.dart';

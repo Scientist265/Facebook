@@ -3,22 +3,24 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:facebook_clo/core/constants/firebase_collection_names.dart';
 import 'package:facebook_clo/core/constants/firebase_field_names.dart';
-import 'package:facebook_clo/features/post/models/post_model.dart';
+import 'package:facebook_clo/features/post/models/comments.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final getAllPostProvider = StreamProvider.autoDispose<Iterable<Post>>((ref) {
-  final controller = StreamController<Iterable<Post>>();
+final getAllCommentsProvider = StreamProvider.autoDispose
+    .family<Iterable<Comment>, String>((ref, String postId) {
+  final controller = StreamController<Iterable<Comment>>();
   final sub = FirebaseFirestore.instance
-      .collection(FirebaseCollectionNames.posts)
+      .collection(FirebaseCollectionNames.comments)
+      .where(FirebaseFieldNames.postId, isEqualTo: postId)
       .orderBy(FirebaseFieldNames.createdAt, descending: true)
       .snapshots()
       .listen((snapshot) {
-    final posts = snapshot.docs.map(
-      (postData) => Post.fromMap(
+    final comments = snapshot.docs.map(
+      (postData) => Comment.fromMap(
         postData.data(),
       ),
     );
-    controller.sink.add(posts);
+    controller.sink.add(comments);
   });
   ref.onDispose(() {
     sub.cancel();

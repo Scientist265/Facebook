@@ -1,5 +1,8 @@
+import 'package:facebook_clo/features/auth/providers/providers.dart';
 import 'package:facebook_clo/features/post/presentation/screen/post_screen.dart';
+import 'package:facebook_clo/features/post/presentation/screen/video_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Constants {
   // Default padding for screens
@@ -50,19 +53,26 @@ class Constants {
     ];
   }
 
-  static const List<Widget> screens = [
-    PostsScreen(),
-    Center(
+  static List<Widget> screens = [
+    const PostsScreen(),
+    const Center(
       child: Text("Friends"),
     ),
-    Center(
-      child: Text("Videos"),
-    ),
-    Center(
+    const VideoScreen(),
+    const Center(
       child: Text("Contacts"),
     ),
     Center(
-      child: Text("Menu"),
+      child: Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          return TextButton(
+            onPressed: () async {
+              await ref.read(authProvider).signOut();
+            },
+            child: const Text("Logout"),
+          );
+        },
+      ),
     ),
   ];
 

@@ -8,7 +8,6 @@ import 'package:facebook_clo/features/auth/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-
 class AuthRepository {
   final _auth = FirebaseAuth.instance;
   final _storage = FirebaseStorage.instance;

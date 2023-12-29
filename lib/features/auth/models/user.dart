@@ -50,7 +50,7 @@ class UserModel {
           DateTime.fromMillisecondsSinceEpoch(map['birthday'] ?? 0).toString(),
       gender: map[FirebaseFieldNames.gender] ?? "",
       email: map[FirebaseFieldNames.email] ?? "",
-      password: map[FirebaseFieldNames.password] as String,
+      password: map[FirebaseFieldNames.password] ?? "",
       profilePicUrl: map[FirebaseFieldNames.profilePicUrl] ?? "",
       uid: map[FirebaseFieldNames.uid] ?? "",
       friends: List<String>.from((map[FirebaseFieldNames.friends] ?? [])),

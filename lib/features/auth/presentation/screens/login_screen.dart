@@ -1,7 +1,7 @@
 import 'package:facebook_clo/core/constants/app_colors.dart';
 import 'package:facebook_clo/core/constants/constants.dart';
 import 'package:facebook_clo/core/constants/sizing.dart';
-import 'package:facebook_clo/core/screens/loader.dart';
+import 'package:facebook_clo/core/utils/utils.dart';
 import 'package:facebook_clo/core/widgets/round_button.dart';
 import 'package:facebook_clo/core/widgets/round_text_field.dart';
 import 'package:facebook_clo/features/auth/presentation/screens/create_account_screen.dart';
@@ -25,14 +25,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool isLoading = false;
 
   Future<void> login() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      setState(() => isLoading = true);
-      await ref.read(authProvider).signIn(
-            email: _emailController.text,
-            password: _passwordController.text,
-          );
-      setState(() => isLoading = false);
+    try {
+      if (_formKey.currentState!.validate()) {
+        _formKey.currentState!.save();
+        setState(() => isLoading = true);
+        await ref.read(authProvider).signIn(
+              email: _emailController.text,
+              password: _passwordController.text,
+            );
+        setState(() => isLoading = false);
+      }
+    } catch (e) {
+      showToastMessage(text: e.toString());
     }
   }
 
@@ -78,14 +82,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     keyBoardType: TextInputType.visiblePassword,
                   ),
                   gaph20,
-                  isLoading
-                      ? const Center(
-                          child: Loader(),
-                        )
-                      : RoundButton(
-                          label: "Login",
-                          onPressed: login,
-                        ),
+                  RoundButton(
+                    label: "Login",
+                    onPressed: login,
+                  ),
                   TextButton(
                     onPressed: () {},
                     style: TextButton.styleFrom(

@@ -3,7 +3,6 @@ import 'package:facebook_clo/core/constants/extension.dart';
 import 'package:facebook_clo/core/constants/sizing.dart';
 import 'package:facebook_clo/core/screens/loader.dart';
 import 'package:facebook_clo/features/auth/providers/get_user_info_by_id_provider.dart';
-import 'package:facebook_clo/features/auth/providers/get_user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

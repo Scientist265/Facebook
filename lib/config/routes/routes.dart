@@ -1,5 +1,6 @@
 import 'package:facebook_clo/core/screens/home_screen.dart';
 import 'package:facebook_clo/features/auth/presentation/screens/create_account_screen.dart';
+import 'package:facebook_clo/features/post/presentation/screen/comment_screen.dart';
 import 'package:facebook_clo/features/post/presentation/screen/create_post_screen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -14,6 +15,11 @@ class Routes {
         return _cupertinoRoute(const HomeScreen());
       case CreatePostScreen.routeName:
         return _cupertinoRoute(const CreatePostScreen());
+      case CommentScreen.routeName:
+        final postId = settings.arguments as String;
+        return _cupertinoRoute(CommentScreen(
+          postId: postId,
+        ));
       default:
         return _cupertinoRoute(
           ErrorScreen(

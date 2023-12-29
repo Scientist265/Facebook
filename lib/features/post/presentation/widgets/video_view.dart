@@ -55,6 +55,7 @@ class _VideoViewState extends State<VideoView> {
                   icon: Icon(
                     isPlaying ? Icons.pause_circle : Icons.play_circle,
                     color: Colors.white,
+                    size: 30,
                   ),
                 ))
           ],

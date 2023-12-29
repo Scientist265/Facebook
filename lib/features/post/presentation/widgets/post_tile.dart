@@ -1,11 +1,12 @@
 import 'package:facebook_clo/core/constants/app_colors.dart';
 import 'package:facebook_clo/core/constants/sizing.dart';
 import 'package:facebook_clo/core/widgets/post_info_tile.dart';
+import 'package:facebook_clo/features/post/presentation/screen/comment_screen.dart';
 import 'package:facebook_clo/features/post/presentation/widgets/icon_text_buttons.dart';
 import 'package:facebook_clo/features/post/presentation/widgets/post_image_video_view.dart';
 import 'package:facebook_clo/features/post/presentation/widgets/round_like_icon_widget.dart';
 import 'package:facebook_clo/features/post/providers/post_provider.dart';
-import 'package:facebook_clo/features/post/repository/models/post_model.dart';
+import 'package:facebook_clo/features/post/models/post_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -52,7 +53,8 @@ class PostTile extends ConsumerWidget {
           ),
           //Post Buttons
           const Divider(),
-          PostButtons(post: post)
+          PostButtons(post: post),
+          gaph12,
         ],
       ),
     );
@@ -81,9 +83,13 @@ class PostButtons extends ConsumerWidget {
                 .likeDislikePost(postId: post.postId, likes: post.likes);
           },
         ),
-        const IconTextButton(
+        IconTextButton(
           label: 'comment',
           icon: FontAwesomeIcons.solidMessage,
+          onPressed: () {
+            Navigator.of(context)
+                .pushNamed(CommentScreen.routeName, arguments: post.postId);
+          },
         ),
         const IconTextButton(
           label: 'share',
