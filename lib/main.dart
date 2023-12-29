@@ -1,3 +1,4 @@
+import 'package:facebook_clo/config/themes/app_theme.dart';
 import 'package:facebook_clo/core/screens/home_screen.dart';
 import 'package:facebook_clo/core/screens/loader.dart';
 import 'package:facebook_clo/features/auth/presentation/screens/login_screen.dart';
@@ -17,7 +18,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseAppCheck.instance.activate();
+  await FirebaseAppCheck.instance.activate(
+    
+  );
   runApp(
     const ProviderScope(
       child: MainApp(),
@@ -32,24 +35,26 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: AppTheme.appTheme(),
       home: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: ((context, snapshot) {
-            final user = FirebaseAuth.instance.currentUser;
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Loader();
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: ((context, snapshot) {
+          final user = FirebaseAuth.instance.currentUser;
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Loader();
+          }
+          if (snapshot.hasData) {
+            if (user!.emailVerified) {
+              return const HomeScreen();
+            } else {
+              //TODO: Need to be Fixed for Email Verification
+              // shoud be VerifyEmailScreen instead
+              return const VerifyEmailScreen();
             }
-            if (snapshot.hasData) {
-              if (user!.emailVerified) {
-                return const HomeScreen();
-              } else {
-                //TODO: Need to be Fixed for Email Verification
-                // shoud be VerifyEmailScreen instead
-                return const HomeScreen();
-              }
-            }
-            return const LoginScreen();
-          })),
+          }
+          return const LoginScreen();
+        }),
+      ),
       onGenerateRoute: Routes.onGenerateRoute,
     );
   }

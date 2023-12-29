@@ -20,6 +20,19 @@ Future<File?> pickImage() async {
   return image;
 }
 
+Future<File?> pickVideo() async {
+  File? video;
+  final picker = ImagePicker();
+  final file = await picker.pickVideo(
+    source: ImageSource.gallery,
+    maxDuration: const Duration(minutes: 5),
+  );
+  if (file != null) {
+    video = File(file.path);
+  }
+  return video;
+}
+
 void showToastMessage({required String text}) {
   Fluttertoast.showToast(
       msg: text,

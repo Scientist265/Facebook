@@ -45,20 +45,19 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      fullName: map[FirebaseFieldNames.fullName] as String,
-      birthday: DateTime.fromMillisecondsSinceEpoch(map['birthday'] as int)
-          .toString(),
-      gender: map[FirebaseFieldNames.gender] as String,
-      email: map[FirebaseFieldNames.email] as String,
+      fullName: map[FirebaseFieldNames.fullName] ?? "",
+      birthday:
+          DateTime.fromMillisecondsSinceEpoch(map['birthday'] ?? 0).toString(),
+      gender: map[FirebaseFieldNames.gender] ?? "",
+      email: map[FirebaseFieldNames.email] ?? "",
       password: map[FirebaseFieldNames.password] as String,
-      profilePicUrl: map[FirebaseFieldNames.profilePicUrl] as String,
-      uid: map[FirebaseFieldNames.uid] as String,
-      friends:
-          List<String>.from((map[FirebaseFieldNames.friends] as List<String>)),
-      sentRequests: List<String>.from(
-          (map[FirebaseFieldNames.sentRequests] as List<String>)),
-      receivedRequests: List<String>.from(
-          (map[FirebaseFieldNames.receivedRequests] as List<String>)),
+      profilePicUrl: map[FirebaseFieldNames.profilePicUrl] ?? "",
+      uid: map[FirebaseFieldNames.uid] ?? "",
+      friends: List<String>.from((map[FirebaseFieldNames.friends] ?? [])),
+      sentRequests:
+          List<String>.from((map[FirebaseFieldNames.sentRequests] ?? "")),
+      receivedRequests:
+          List<String>.from((map[FirebaseFieldNames.receivedRequests] ?? "")),
     );
   }
 }

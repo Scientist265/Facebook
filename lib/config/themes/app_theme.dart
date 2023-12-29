@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/app_colors.dart';
 
-
 class AppTheme {
   static ThemeData? appTheme() {
     return ThemeData(
+      primaryColor: const Color.fromRGBO(55, 139, 247, 1),
       buttonTheme: buttonTheme(),
-      iconButtonTheme: iconButtonTheme(),
+      // iconButtonTheme: iconButtonTheme(),
       appBarTheme: appBarTheme(),
     );
   }
 
+// static TextButtonTheme? textButtonTheme(){
+//   return
+// }
   // AppBar theme
   static AppBarTheme? appBarTheme() {
     return const AppBarTheme(
