@@ -1,5 +1,6 @@
 import 'package:facebook_clo/core/screens/profile_screen.dart';
 import 'package:facebook_clo/features/auth/providers/providers.dart';
+import 'package:facebook_clo/features/friends/presentation/screens/friends_screen.dart';
 import 'package:facebook_clo/features/post/presentation/screen/post_screen.dart';
 import 'package:facebook_clo/features/post/presentation/screen/video_screen.dart';
 import 'package:flutter/material.dart';
@@ -56,9 +57,7 @@ class Constants {
 
   static List<Widget> screens = [
     const PostsScreen(),
-    const Center(
-      child: Text("Friends"),
-    ),
+    const FriendsScreen(),
     const VideoScreen(),
     const ProfileScreen(),
     Center(

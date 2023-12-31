@@ -45,8 +45,6 @@ class MainApp extends StatelessWidget {
             if (user!.emailVerified) {
               return const HomeScreen();
             } else {
-              //TODO: Need to be Fixed for Email Verification
-              // shoud be VerifyEmailScreen instead
               return const VerifyEmailScreen();
             }
           }

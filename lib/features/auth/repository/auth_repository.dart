@@ -121,4 +121,6 @@ class AuthRepository {
     final user = UserModel.fromMap(userData.data()!);
     return user;
   }
+
+  
 }

@@ -5,8 +5,8 @@ import 'package:facebook_clo/core/constants/sizing.dart';
 import 'package:facebook_clo/core/screens/error_screen.dart';
 import 'package:facebook_clo/core/screens/loader.dart';
 import 'package:facebook_clo/core/widgets/round_button.dart';
-import 'package:facebook_clo/features/auth/providers/get_user_info_by_id_provider.dart';
-import 'package:facebook_clo/features/auth/providers/get_user_info_provider.dart';
+import 'package:facebook_clo/features/auth/providers/get_user_info_by_stream_by_id_provider.dart';
+import 'package:facebook_clo/features/friends/presentation/widgets/add_friend_button.dart';
 import 'package:facebook_clo/features/post/presentation/widgets/icon_text_buttons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,8 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final myUid = FirebaseAuth.instance.currentUser!.uid;
-    final userInfo = ref.watch(getUserInfoByIdProvider(userId ?? myUid));
+    final userInfo =
+        ref.watch(getUserInfoAsStreamByIdProvider(userId ?? myUid));
     return userInfo.when(
       data: (userData) {
         return SafeArea(
@@ -53,7 +54,11 @@ class ProfileScreen extends ConsumerWidget {
                   ),
                 ),
                 gaph20,
-              userId ==myUid?  _buildAddToStoryButton(): AddFriendButton(),
+                userId == myUid
+                    ? _buildAddToStoryButton()
+                    : AddFriendButton(
+                        user: userData,
+                      ),
                 gaph12,
                 _buildProfileInfo(
                   email: userData.email,

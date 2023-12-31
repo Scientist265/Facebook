@@ -1,46 +1,59 @@
-import 'package:facebook_clo/core/constants/app_colors.dart';
-import 'package:flutter/material.dart';
+import 'package:facebook_clo/core/screens/loader.dart';
+import 'package:facebook_clo/core/widgets/round_button.dart';
+import 'package:facebook_clo/features/auth/models/user.dart';
+import 'package:facebook_clo/features/friends/providers/friend_provider.dart';
 
-class RoundButton extends StatelessWidget {
-  const RoundButton({
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class AddFriendButton extends ConsumerStatefulWidget {
+  const AddFriendButton({
     super.key,
-    required this.onPressed,
-    required this.label,
-    this.color = AppColors.lightBlueColor,
-    this.height = 50,
+    required this.user,
   });
 
-  final VoidCallback? onPressed;
-  final String label;
-  final Color color;
-  final double height;
+  final UserModel user;
+
+  @override
+  ConsumerState<AddFriendButton> createState() => _AddFriendButtonState();
+}
+
+class _AddFriendButtonState extends ConsumerState<AddFriendButton> {
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        height: height,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: onPressed == null ? Colors.transparent : color,
-          borderRadius: BorderRadius.circular(25),
-          border: Border.all(
-            color: AppColors.darkBlueColor,
-          ),
-        ),
-        child: Center(
-          child: Text(
-            label,
-            style: TextStyle(
-              color: (color == AppColors.lightBlueColor && onPressed != null)
-                  ? AppColors.realWhiteColor
-                  : AppColors.darkBlueColor,
-              fontSize: 18,
-            ),
-          ),
-        ),
-      ),
-    );
+    final myUid = FirebaseAuth.instance.currentUser!.uid;
+    final requestSent = widget.user.receivedRequests.contains(myUid);
+    final requestReceived = widget.user.sentRequests.contains(myUid);
+    final alreadyFriend = widget.user.friends.contains(myUid);
+    return isLoading
+        ? const Loader()
+        : RoundButton(
+            onPressed: requestReceived
+                ? null
+                : () async {
+                    setState(() => isLoading = true);
+                    final provider = ref.read(friendProvider);
+                    final userId = widget.user.uid;
+                    if (requestSent) {
+                      // cancel request
+                      await provider.removeFriendRequest(userId: userId);
+                    } else if (alreadyFriend) {
+                      // remove friendship
+                      await provider.removeFriend(userId: userId);
+                    } else {
+                      // sent friend request
+                      provider.sendFriendRequest(userId: userId);
+                    }
+                    setState(() => isLoading = false);
+                  },
+            label: requestSent
+                ? 'Cancel Request'
+                : alreadyFriend
+                    ? 'Remove Friend'
+                    : 'Sent Friend Request',
+          );
   }
 }
