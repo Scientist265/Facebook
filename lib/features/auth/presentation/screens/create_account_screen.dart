@@ -57,7 +57,7 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
           .read(authProvider)
           .createAccount(
             fullName: "${_fNameController.text} ${_lNameController.text}",
-            birthday: "${birthday ?? DateTime.now()}",
+            birthday: birthday ?? DateTime.now(),
             gender: gender,
             email: _emailController.text,
             password: _passwordController.text,

@@ -1,3 +1,4 @@
+import 'package:facebook_clo/core/screens/profile_screen.dart';
 import 'package:facebook_clo/features/auth/providers/providers.dart';
 import 'package:facebook_clo/features/post/presentation/screen/post_screen.dart';
 import 'package:facebook_clo/features/post/presentation/screen/video_screen.dart';
@@ -59,9 +60,7 @@ class Constants {
       child: Text("Friends"),
     ),
     const VideoScreen(),
-    const Center(
-      child: Text("Contacts"),
-    ),
+    const ProfileScreen(),
     Center(
       child: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {

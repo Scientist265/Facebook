@@ -51,7 +51,7 @@ class PostsList extends ConsumerWidget {
       },
       loading: () {
         return const SliverToBoxAdapter(
-          child: Loader(),
+          child: Center(child: Loader()),
         );
       },
     );

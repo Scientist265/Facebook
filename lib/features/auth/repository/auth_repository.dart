@@ -45,7 +45,7 @@ class AuthRepository {
 
   Future<UserCredential?> createAccount({
     required String fullName,
-    required String birthday,
+    required DateTime birthday,
     required String gender,
     required String email,
     required String password,

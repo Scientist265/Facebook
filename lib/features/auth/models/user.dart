@@ -1,12 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_firs
 
+import 'package:facebook_clo/core/constants/constants.dart';
 import 'package:facebook_clo/core/constants/firebase_field_names.dart';
 import 'package:flutter/material.dart';
 
 @immutable
 class UserModel {
   final String fullName;
-  final String birthday;
+  final DateTime birthday;
   final String gender;
   final String email;
   final String password;
@@ -46,12 +47,12 @@ class UserModel {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       fullName: map[FirebaseFieldNames.fullName] ?? "",
-      birthday:
-          DateTime.fromMillisecondsSinceEpoch(map['birthday'] ?? 0).toString(),
+      birthday: DateTime.fromMillisecondsSinceEpoch(map['birthday'] ?? 0),
       gender: map[FirebaseFieldNames.gender] ?? "",
       email: map[FirebaseFieldNames.email] ?? "",
       password: map[FirebaseFieldNames.password] ?? "",
-      profilePicUrl: map[FirebaseFieldNames.profilePicUrl] ?? "",
+      profilePicUrl:
+          map[FirebaseFieldNames.profilePicUrl] ?? Constants.profilePicBlank,
       uid: map[FirebaseFieldNames.uid] ?? "",
       friends: List<String>.from((map[FirebaseFieldNames.friends] ?? [])),
       sentRequests:

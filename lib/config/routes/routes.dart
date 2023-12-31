@@ -1,4 +1,5 @@
 import 'package:facebook_clo/core/screens/home_screen.dart';
+import 'package:facebook_clo/core/screens/profile_screen.dart';
 import 'package:facebook_clo/features/auth/presentation/screens/create_account_screen.dart';
 import 'package:facebook_clo/features/post/presentation/screen/comment_screen.dart';
 import 'package:facebook_clo/features/post/presentation/screen/create_post_screen.dart';
@@ -19,6 +20,11 @@ class Routes {
         final postId = settings.arguments as String;
         return _cupertinoRoute(CommentScreen(
           postId: postId,
+        ));
+      case ProfileScreen.routeName:
+        final userId = settings.arguments as String;
+        return _cupertinoRoute(ProfileScreen(
+          userId: userId,
         ));
       default:
         return _cupertinoRoute(

@@ -83,42 +83,45 @@ class CommentHeader extends ConsumerWidget {
   }
 }
 
-class CommentFooter extends StatelessWidget {
+class CommentFooter extends ConsumerStatefulWidget {
   const CommentFooter({super.key, required this.comment});
   final Comment comment;
 
   @override
+  ConsumerState<CommentFooter> createState() => _CommentFooterState();
+}
+
+class _CommentFooterState extends ConsumerState<CommentFooter> {
+  Future<void> getLikeDislikeComment() async {
+    setState(() {});
+    await ref.read(postProvider).likeDislikeComment(
+        commentId: widget.comment.commentId, likes: widget.comment.likes);
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     final isLiked =
-        comment.likes.contains(FirebaseAuth.instance.currentUser!.uid);
-    return Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              comment.createdAt.fromNow(),
-            ),
-            TextButton(
-                onPressed: () async {
-                  await ref.read(postProvider).likeDislikeComment(
-                      commentId: comment.commentId, likes: comment.likes);
-                      
-                      
-                },
-                child: Text(
-                  "like",
-                  style: TextStyle(
-                    color: isLiked ? AppColors.blueColor : AppColors.greyColor,
-                  ),
-                )),
-            gapW16,
-            const RoundLikeIcon(),
-            gapW8,
-            Text(comment.likes.length.toString())
-          ],
-        );
-      },
+        widget.comment.likes.contains(FirebaseAuth.instance.currentUser!.uid);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text(
+          widget.comment.createdAt.fromNow(),
+        ),
+        TextButton(
+            onPressed: getLikeDislikeComment,
+            child: Text(
+              "like",
+              style: TextStyle(
+                color: isLiked ? AppColors.blueColor : AppColors.greyColor,
+              ),
+            )),
+        gapW16,
+        const RoundLikeIcon(),
+        gapW8,
+        Text(widget.comment.likes.length.toString())
+      ],
     );
   }
 }
