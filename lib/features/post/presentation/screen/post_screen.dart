@@ -4,6 +4,7 @@ import "package:facebook_clo/core/screens/loader.dart";
 import "package:facebook_clo/features/post/presentation/make_post_widgets.dart";
 import "package:facebook_clo/features/post/presentation/widgets/post_tile.dart";
 import "package:facebook_clo/features/post/providers/get_all_post_provider.dart";
+import "package:facebook_clo/features/story/presentation/screens/stories_view.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
@@ -20,6 +21,14 @@ class _PostsScreenState extends State<PostsScreen> {
     return const CustomScrollView(
       slivers: [
         FeedMakePostWidget(),
+        SliverToBoxAdapter(
+          child: gaph8,
+        ),
+        // stories view
+        StoriesView(),
+        SliverToBoxAdapter(
+          child: gaph8,
+        ),
         PostsList(),
         // Post List Widget
       ],

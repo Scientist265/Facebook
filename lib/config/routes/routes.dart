@@ -3,6 +3,9 @@ import 'package:facebook_clo/core/screens/profile_screen.dart';
 import 'package:facebook_clo/features/auth/presentation/screens/create_account_screen.dart';
 import 'package:facebook_clo/features/post/presentation/screen/comment_screen.dart';
 import 'package:facebook_clo/features/post/presentation/screen/create_post_screen.dart';
+import 'package:facebook_clo/features/story/models/story_model.dart';
+import 'package:facebook_clo/features/story/presentation/screens/create_story_screen.dart';
+import 'package:facebook_clo/features/story/presentation/screens/story_view_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../core/screens/error_screen.dart';
@@ -26,6 +29,11 @@ class Routes {
         return _cupertinoRoute(ProfileScreen(
           userId: userId,
         ));
+      case CreateStoryScreen.routeName:
+        return _cupertinoRoute(const CreateStoryScreen());
+      case StoryViewScreen.routeName:
+        final stories = settings.arguments as List<Story>;
+        return _cupertinoRoute(StoryViewScreen(stories: stories));
       default:
         return _cupertinoRoute(
           ErrorScreen(

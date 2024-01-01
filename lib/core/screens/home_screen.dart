@@ -32,8 +32,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.darkGreyColor,
       appBar: AppBar(
         elevation: 0,
+        backgroundColor: AppColors.realWhiteColor,
         title: _buildFacebookText(),
         actions: [
           _buildSearchWidget(),
