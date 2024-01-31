@@ -1,6 +1,8 @@
 import 'package:facebook_clo/core/screens/home_screen.dart';
 import 'package:facebook_clo/core/screens/profile_screen.dart';
 import 'package:facebook_clo/features/auth/presentation/screens/create_account_screen.dart';
+import 'package:facebook_clo/features/chat/presentation/screens/chat_screen.dart';
+import 'package:facebook_clo/features/chat/presentation/screens/chats_screen.dart';
 import 'package:facebook_clo/features/post/presentation/screen/comment_screen.dart';
 import 'package:facebook_clo/features/post/presentation/screen/create_post_screen.dart';
 import 'package:facebook_clo/features/story/models/story_model.dart';
@@ -34,6 +36,19 @@ class Routes {
       case StoryViewScreen.routeName:
         final stories = settings.arguments as List<Story>;
         return _cupertinoRoute(StoryViewScreen(stories: stories));
+      case ChatScreen.routeName:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        final userId = arguments['userId'] as String;
+        return _cupertinoRoute(
+          ChatScreen(
+            userId: userId,
+          ),
+        );
+      case ChatsScreen.routeName:
+        return _cupertinoRoute(
+          const ChatsScreen(),
+        );
+
       default:
         return _cupertinoRoute(
           ErrorScreen(

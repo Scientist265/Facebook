@@ -1,6 +1,8 @@
 import 'package:facebook_clo/core/constants/app_colors.dart';
 import 'package:facebook_clo/core/constants/constants.dart';
 import 'package:facebook_clo/core/widgets/round_icon_button.dart';
+import 'package:facebook_clo/features/chat/presentation/screens/chat_screen.dart';
+import 'package:facebook_clo/features/chat/presentation/screens/chats_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -73,6 +75,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   }
 
   Widget _buildMessenger() {
-    return const RoundIconButton(icon: FontAwesomeIcons.facebookMessenger);
+    return InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed(ChatsScreen.routeName);
+        },
+        child: const RoundIconButton(icon: FontAwesomeIcons.facebookMessenger));
   }
 }

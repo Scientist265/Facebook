@@ -6,6 +6,7 @@ import 'package:facebook_clo/core/screens/error_screen.dart';
 import 'package:facebook_clo/core/screens/loader.dart';
 import 'package:facebook_clo/core/widgets/round_button.dart';
 import 'package:facebook_clo/features/auth/providers/get_user_info_by_stream_by_id_provider.dart';
+import 'package:facebook_clo/features/chat/presentation/screens/chats_screen.dart';
 import 'package:facebook_clo/features/friends/presentation/widgets/add_friend_button.dart';
 import 'package:facebook_clo/features/post/presentation/widgets/icon_text_buttons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,6 +60,15 @@ class ProfileScreen extends ConsumerWidget {
                     : AddFriendButton(
                         user: userData,
                       ),
+                gaph8,
+                RoundButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(ChatsScreen.routeName, arguments: userId);
+                  },
+                  label: "Send Message",
+                  color: Colors.transparent,
+                ),
                 gaph12,
                 _buildProfileInfo(
                   email: userData.email,

@@ -90,6 +90,19 @@ class AuthRepository {
           );
 
       return credential;
+    } on FirebaseAuthException catch (e) {
+      //  From Firebaseauth exception code
+      if (e.code == 'weak-password') {
+        showToastMessage(text: "The password is too weak");
+      } else if (e.code == "email-already-in-use") {
+        showToastMessage(text: "This email address has already been register");
+      } else if (e.code == "invalid-email") {
+        showToastMessage(text: "Invalid email format");
+      } else if (e.code == "operation-not-allowed") {
+        showToastMessage(text: "Operation Not allowed");
+      } else if (e.code == "user-not-found") {
+        showToastMessage(text: "User not found");
+      }
     } catch (e) {
       showToastMessage(text: e.toString());
     }
@@ -121,6 +134,4 @@ class AuthRepository {
     final user = UserModel.fromMap(userData.data()!);
     return user;
   }
-
-  
 }
